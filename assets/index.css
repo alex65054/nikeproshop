@@ -1,0 +1,21 @@
+@import url('./global.css');
+
+main {
+    padding: 50px;
+    line-height: 1.25rem;
+}
+
+.shoe-type-container {
+    margin-top: 35px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px 40px;
+}
+
+.shoe-type-container h6 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin: 0;
+    text-align: center;
+}
