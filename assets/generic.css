@@ -24,11 +24,16 @@ main img {
 
 .img-container {
     display: flex;
+    align-items: start;
     margin: 10px 0;
 }
 
 .img-container p {
     margin: 10px;
+}
+
+.img-container>* {
+    width: 50%;
 }
 
 .img-container h3 {
@@ -68,6 +73,10 @@ main .about-heading {
 }
 
 @media only screen and (max-width: 700px) {
+
+    .img-container>* {
+        width: 100%;
+    }
 
     main {
         padding: 40px 20px 80px 20px;;

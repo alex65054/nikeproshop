@@ -5,6 +5,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     font-family: sans-serif;
+    overflow-x: hidden;
 }
 
 .max {
@@ -16,7 +17,7 @@ body {
 
 header {
     display: flex;
-    flex-direction: column
+    flex-direction: column;
 }
 
 header nav {
@@ -32,7 +33,7 @@ header nav {
 
 header nav img {
     height: 40px;
-    z-index: 2;
+    z-index: 5;
 }
 
 header nav a {
@@ -61,7 +62,6 @@ header nav a:hover {
 .header-image-container {
     width: 100%;
     height: calc(100vw / 3.125);
-    background-size: cover;
 }
 
 header .image-selector {
@@ -69,6 +69,7 @@ header .image-selector {
     accent-color: orange;
     position: relative;
     top: calc(100vw / 3.125 - 35px);
+    z-index: 5;
 }
 
 .image-selector:hover {
@@ -100,18 +101,48 @@ header .image-selector {
     background-color: orangered;
 }
 
-/* Header slideshow logic */
+.header-image {
+    position: absolute;
+    top: 50px;
+    height: calc(100vw / 3.125);
+    width: 100%;
+    transition-property: right;
+    transition-duration: 250ms;
+    background-size: cover;
+    z-index: 1;
+}
 
-.header-image-container:has(#header-image-1-toggle:checked) {
+#header-image-1 {
     background-image: url('./images/Slideshow-image-1.jpg');
 }
-
-.header-image-container:has(#header-image-2-toggle:checked) {
+#header-image-2 {
     background-image: url('./images/Slideshow-image-2.jpg');
 }
-
-.header-image-container:has(.image-selector #header-image-3-toggle:checked) {
+#header-image-3 {
     background-image: url('./images/Slideshow-image-3.jpg');
+}
+
+/* Header slideshow logic */
+
+.header-image-container:has(#header-image-1-toggle:checked) #header-image-1,.header-image-container:has(#header-image-2-toggle:checked) #header-image-2,.header-image-container:has(#header-image-3-toggle:checked) #header-image-3 {
+    right: 0;
+    z-index: 2;
+}
+
+.header-image-container:has(#header-image-1-toggle:checked) #header-image-2,.header-image-container:has(#header-image-2-toggle:checked) #header-image-3 {
+    right: -100vw;
+}
+
+.header-image-container:has(#header-image-1-toggle:checked) #header-image-3 {
+    right: -200vw;
+}
+
+.header-image-container:has(#header-image-2-toggle:checked) #header-image-1,.header-image-container:has(#header-image-3-toggle:checked) #header-image-2 {
+    right: 100vw;
+}
+
+.header-image-container:has(#header-image-3-toggle:checked) #header-image-1 {
+    right: 200vw;
 }
 
 
@@ -179,14 +210,35 @@ main {
 
 @media only screen and (max-width: 1300px) {
 
-    /* Add alt menu */
+    /* Header */
+
+    header .image-selector {
+        top: calc(100vw / 3.125 - 35px + 50px);
+    }
+
+    /* Alt menu */
 
     .nav-items {
-        display: none;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        justify-content: flex-start;
+        padding-top: 50px;
+        gap: 25px;
+        z-index: 3;
+        height: 100vh;
+        width: 100%;
+        top: calc(-100vh - 50px);
+        background-color: orange;
+        transition-property: top;
+        transition-duration: 250ms;
     }
 
     header nav {
         justify-content: space-between;
+        position: absolute;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .alt-menu {
@@ -197,6 +249,10 @@ main {
         transition-property: opacity;
         transition-duration: 250ms;
         z-index: 10;
+    }
+
+    #alt-open {
+        position: relative;
     }
 
     #alt-close {
@@ -214,6 +270,10 @@ main {
         opacity: 0;
     }
 
+    #alt-menu-toggle:hover {
+        cursor: pointer;
+    }
+
     #alt-menu-toggle:checked ~ #alt-open {
         opacity: 0;
     }
@@ -223,22 +283,22 @@ main {
     }
 
     nav:has(.alt-menu #alt-menu-toggle:checked) .nav-items {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        padding-top: 50px;
-        gap: 25px;
-        z-index: 1;
-        height: 100vh;
-        top: 20px;
-        background-color: orange;
+        top: 0;
     }
 
     nav:has(.alt-menu #alt-menu-toggle:checked) {
         z-index: 10;
         position: fixed;
+    }
+
+    /* Footer */
+
+    .footer-content>* a:has(img) {
+        width: 20%;
+    }
+
+    .footer-content>* img {
         width: 100%;
-        box-sizing: border-box;
     }
 
 }
